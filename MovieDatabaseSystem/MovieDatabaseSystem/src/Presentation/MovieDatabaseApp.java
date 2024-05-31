@@ -43,12 +43,30 @@ public class MovieDatabaseApp {
                     addGenre();
                     break;
                 case 7:
-                    displayGenres();
+                    searchGenre();
                     break;
                 case 8:
-                    addRating();
+                    updateGenre();
                     break;
                 case 9:
+                    deleteGenre();
+                    break;
+                case 10:
+                    displayGenres();
+                    break;
+                case 11:
+                    addRating();
+                    break;
+                case 12:
+                    searchRating();
+                    break;
+                case 13:
+                    updateRating();
+                    break;
+                case 14:
+                    deleteRating();
+                    break;
+                case 15:
                     displayRatings();
                     break;
                 case 0:
@@ -67,10 +85,15 @@ public class MovieDatabaseApp {
         System.out.println("4. Delete movie");
         System.out.println("5. Display all movies");
         System.out.println("6. Add genre");
-        System.out.println("7. Display all genres");
-        System.out.println("8. Add rating");
-        System.out.println("9. Display all ratings");
-        System.out.println("0. Exit");
+        System.out.println("7. Search genre");
+        System.out.println("8. Update genre");
+        System.out.println("9. Delete genre");
+        System.out.println("10. Display all genres");
+        System.out.println("11. Add rating");
+        System.out.println("12. Search rating");
+        System.out.println("13. Update rating");
+        System.out.println("14. Delete rating");
+        System.out.println("15. Display all ratings");
         System.out.print("Enter your choice: ");
     }
 
@@ -89,6 +112,7 @@ public class MovieDatabaseApp {
         movie.setGenreId(genreId);
         movie.setRatingId(ratingId);
         movieService.addMovie(movie);
+        System.out.println("Movie added successfully.");
     }
 
     private static void searchMovie() {
@@ -111,12 +135,14 @@ public class MovieDatabaseApp {
         System.out.print("Enter new value: ");
         String newValue = scanner.nextLine();
         movieService.updateMovie(title, field, newValue);
+        System.out.println("Movie updated successfully.");
     }
 
     private static void deleteMovie() {
         System.out.print("Enter movie title to delete: ");
         String title = scanner.nextLine();
         movieService.deleteMovie(title);
+        System.out.println("Movie deleted successfully.");
     }
 
     private static void displayMovies() {
@@ -129,6 +155,36 @@ public class MovieDatabaseApp {
         Genre genre = new Genre();
         genre.setName(name);
         genreService.addGenre(genre);
+        System.out.println("Genre added successfully.");
+    }
+    private static void searchGenre() {
+        System.out.print("Enter genre ID to search: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        Genre genre = genreService.getGenre(id);
+        if (genre != null) {
+            System.out.println("Genre found: ID: " + genre.getId() + ", Name: " + genre.getName());
+        } else {
+            System.out.println("No genre found with that ID.");
+        }
+    }
+
+    private static void updateGenre() {
+        System.out.print("Enter genre ID to update: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        System.out.print("Enter new genre name: ");
+        String newName = scanner.nextLine();
+        Genre genre = new Genre();
+        genre.setId(id);
+        genre.setName(newName);
+        genreService.updateGenre(genre);
+        System.out.println("Genre updated successfully.");
+    }
+
+    private static void deleteGenre() {
+        System.out.print("Enter genre ID to delete: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        genreService.deleteGenre(id);
+        System.out.println("Genre deleted successfully.");
     }
 
     private static void displayGenres() {
@@ -145,6 +201,38 @@ public class MovieDatabaseApp {
         rating.setValue(value);
         rating.setDescription(description);
         ratingService.addRating(rating);
+    }
+    private static void searchRating() {
+        System.out.print("Enter rating ID to search: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        Rating rating = ratingService.getRating(id);
+        if (rating != null) {
+            System.out.println("Rating found: ID: " + rating.getId() + ", Value: " + rating.getValue() + ", Description: " + rating.getDescription());
+        } else {
+            System.out.println("No rating found with that ID.");
+        }
+    }
+
+    private static void updateRating() {
+        System.out.print("Enter rating ID to update: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        System.out.print("Enter new rating value: ");
+        float newValue = Float.parseFloat(scanner.nextLine());
+        System.out.print("Enter new rating description: ");
+        String newDescription = scanner.nextLine();
+        Rating rating = new Rating();
+        rating.setId(id);
+        rating.setValue(newValue);
+        rating.setDescription(newDescription);
+        ratingService.updateRating(rating);
+        System.out.println("Rating updated successfully.");
+    }
+
+    private static void deleteRating() {
+        System.out.print("Enter rating ID to delete: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        ratingService.deleteRating(id);
+        System.out.println("Rating deleted successfully.");
     }
 
     private static void displayRatings() {
