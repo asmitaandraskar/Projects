@@ -1,7 +1,7 @@
 # Projects
 Project Overview
 
-Project Name: Movie Database System
+Project Name: Movie Management System
 Objective: To manage a movie database that allows CRUD operations on movies, genres, and ratings using JDBC in Java.
 
 Architecture
